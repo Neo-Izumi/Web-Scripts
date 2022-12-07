@@ -55,7 +55,7 @@ def sqli_password(url):
 
 def main(): 
     url = "https://0a100000046997d0c095780000f500bd.web-security-academy.net/filter?category=Gifts"
-    print("(+)Retrieving Passwords...")
+    print("(+) Retrieving Passwords...")
     sqli_password(url)        
 
 if __name__ == "__main__":

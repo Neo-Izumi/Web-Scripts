@@ -40,7 +40,7 @@ def sql_inject(url):
 
 def main():
     url = "https://0a9d007104e3a500c019076800020054.web-security-academy.net/"
-    print("(+)Retrieving Passwords...")
+    print("(+) Retrieving Passwords...")
     sql_inject(url)
 
 if __name__ == "__main__":
