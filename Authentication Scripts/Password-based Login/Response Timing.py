@@ -1,5 +1,3 @@
-# from operator import imod
-# from weakref import proxy
 import sys
 import urllib3
 import urllib

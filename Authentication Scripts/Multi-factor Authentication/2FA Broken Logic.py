@@ -6,7 +6,7 @@ import random
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-proxies = {'http': 'http://127.0.0.1:8080', 'https': 'https://127.0.0.1:8080'}
+proxies = {'http': 'http://127.0.0.1:8080' , 'https': 'https://127.0.0.1:8080'}
 
 def init_request(url, cookie, n):
     if n < 10:
@@ -25,7 +25,7 @@ def send_request(url):
         sys.stdout.write('\r' + str(i))
         sys.stdout.flush()
         r = init_request(url, cookie, i)
-        if ('Your username is' in r.text):
+        if ('Log out' in r.text):
             print('Successfully !!!')
             break
 
