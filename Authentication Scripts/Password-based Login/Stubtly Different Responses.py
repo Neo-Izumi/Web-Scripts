@@ -8,7 +8,7 @@ fp = open("Password.txt", "r")
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-proxies = {"http": "http://127.0.0.1:8080", "https": "https://127.0.0.1:8080"}
+proxies = {"http": "http://127.0.0.1:8080", "https": "http://127.0.0.1:8080"}
 
 def main():
     url = "https://0a68008203013c75c051336800690064.web-security-academy.net/login"

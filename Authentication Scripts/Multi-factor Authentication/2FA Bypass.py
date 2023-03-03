@@ -4,7 +4,7 @@ import requests
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-proxies = {'http': 'http://127.0.0.1:8080' , 'https': 'https://127.0.0.1:8080'}
+proxies = {'http': 'http://127.0.0.1:8080' , 'https': 'http://127.0.0.1:8080'}
 
 #problem: there is a crfs token is created whenever we send a request so that 400 code is returned 
 

